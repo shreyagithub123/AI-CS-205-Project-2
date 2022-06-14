@@ -10,15 +10,6 @@ def add_feature2(acc, acccurr, test):
         acccurr = acc
         feature_local = test
     return feature_local,acccurr
-# # This function checks if the over all accuracy with the feature is better or without the feature
-# def add_feature1(acc, Top, test):
-#     feature_local = -1
-#     if acc > Top:
-#         Top = acc
-#         feature_local = test
-#     return feature_local,Top
-# This function adds the feature to subset if the accuracy is better and keeps checking if the accuracy is increasing its added to final set.
-# Or the feature is added to another set 
 def realgame(add_this, frwdfeature_s, frwdfinal,best_acc,check2,check22,val):
     if add_this >= 0:
       if val ==1:
@@ -111,19 +102,6 @@ def leave_out(data, fe_subset):
 			correct_instances = correct_instances + 1
 	return calc_accuracy(correct_instances)
 
-#clean_data performs normalization on the data
-def clean_data(data):
-	avg = []
-	for i in range(1, num_features + 1):
-		avg.append((sum(row[i] for row in data)) / num_instances)
-	stan_dev = []
-	for i in range(1, num_features + 1):
-		var = sum(pow((row[i] - avg[i-1]), 2) for row in data) / num_instances
-		stan_dev.append(math.sqrt(var))
-	for i in range(0, num_instances):
-		for j in range(1, num_features + 1):
-			data[i][j] = ((data[i][j] - avg[j-1]) / stan_dev[j-1])
-	return data
 
 
 # data is loaded and number of features and number of instances are found out.
@@ -147,7 +125,7 @@ print ('1. Forward Selection')
 print ('2. Backward Elimination')
 choice = int(input())
 print ('This dataset has {} features (not including the class attribute), with {} instances.'.format(num_features,num_instances))
-data = clean_data(instances)
+
 featurelist = []
 featurelist = [i for i in range(1,num_features+1)]
 accuracy = leave_out(data, featurelist)
